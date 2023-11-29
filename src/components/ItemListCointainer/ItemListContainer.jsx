@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { getProductos ,getProductosByCategory } from '../../asyncMock';
+import { getProductos, getProductosByCategory } from '../../asyncMock';
 import ItemList from '../ItemList/ItemList';
 import style from '../ItemListCointainer/ItemListContainer.module.css'
 import { useParams } from 'react-router-dom';
 
 const ItemListContainer = ({ greeting }) => {
   const [productos, setProductos] = useState([])
-  const {categoryId} = useParams()
+  const { categoryId } = useParams()
 
   useEffect(() => {
-    const asyncFunc = categoryId ? getProductosByCategory : getProductos 
+    const asyncFunc = categoryId ? getProductosByCategory : getProductos
 
     asyncFunc(categoryId)
       .then(response => {
-           setProductos(response)
+        setProductos(response)
       })
-      .catch(error=> {
+      .catch(error => {
         console.error(error)
       })
-    },[categoryId])
+  }, [categoryId])
 
 
   return (
@@ -26,7 +26,7 @@ const ItemListContainer = ({ greeting }) => {
       <div className="row">
         <div className={style.col}>
           <h2 className="mt-5">{greeting}</h2>
-          <ItemList productos={productos}/>
+          <ItemList productos={productos} />
         </div>
       </div>
     </div>
